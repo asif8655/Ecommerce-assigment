@@ -1,0 +1,52 @@
+package com.application.util;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.application.service.ProductService;
+
+@Component
+public class ImageUploader {
+
+	@Autowired
+	private ProductService productService;
+
+	int productId;
+
+	public String uploadImage(String path, MultipartFile file)  {
+		try {
+			String name = file.getOriginalFilename();
+
+			if (name.isEmpty()) {
+				return this.productService.getProductById(productId).getImg();
+
+			}
+			String randomId = UUID.randomUUID().toString();
+			String fileName = randomId.concat(name.substring(name.lastIndexOf(".")));
+
+			String fullpath = path + File.separator + fileName;
+			File f = new File(path);
+
+			if (!f.exists())
+				f.mkdir();
+
+			Files.copy(file.getInputStream(), Paths.get(fullpath));
+			return fileName;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	public void setId(int id) {
+		this.productId = id;
+	}
+
+}
