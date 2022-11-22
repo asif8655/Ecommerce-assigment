@@ -1,9 +1,14 @@
 package com.application.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import com.application.entity.Login;
 
-public interface LoginRepo extends CrudRepository<Login, String>{
+public interface LoginRepo extends JpaRepository<Login, String>{
+	
+	public List<Login> findByMobileNo(String mobileNo);
 
 }

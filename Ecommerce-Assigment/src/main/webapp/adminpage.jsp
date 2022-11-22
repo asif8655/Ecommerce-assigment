@@ -24,7 +24,7 @@
 
 <%
 List<Product> products = (List<Product>) request.getAttribute("products");
-LoginDto userDto = (LoginDto) session.getAttribute("adminuser");
+String userDto = (String) session.getAttribute("adminuser");
 %>
 
 </head>
@@ -49,21 +49,14 @@ LoginDto userDto = (LoginDto) session.getAttribute("adminuser");
 					%>
 					<li class="nav-item "><h6 class="nav-link">
 							Hello
-							<%=userDto.getEmail()%></h6></li>
-					<li class="nav-item"><a class="nav-link active " href="logout"><span
+							<%=userDto%></h6></li>
+					<li class="nav-item"><a class="nav-link active " href="adminlogout"><span
 							class="fa fa-sing-out"></span> Logout</a></li>
 					<%
 					}
 					%>
 				</ul>
 
-				<form class="d-flex" role="search" id="search-form"
-					action="SearchProduct" method="POST">
-					<input autocomplete="off" class="form-control me-2" type="search"
-						placeholder="Search" aria-label="Search" id="input-search">
-					<button class="btn btn-outline-light" type="submit"
-						id="search-product" onclick="searchProduct()">Search</button>
-				</form>
 			</div>
 		</div>
 	</nav>

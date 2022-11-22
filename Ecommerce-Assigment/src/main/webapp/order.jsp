@@ -67,7 +67,7 @@
 					%>
 					<li class="nav-item "><h6 class="nav-link">
 							Hello
-							<%=userDto.getEmail()%></h6></li>
+							<%=userDto.getName()%></h6></li>
 					<li class="nav-item"><a class="nav-link active " href="logout"><span
 							class="fa fa-sing-out"></span> Logout</a></li>
 					<%

@@ -22,5 +22,9 @@ public class CustomerService {
 
 		return this.customerDao.getCustomerById(email);
 	}
+	
+	public Customer getCustomerByMobileNo(String mobileNo) {
+		return this.customerDao.getCustomerByMobileNo(mobileNo);
+	}
 
 }

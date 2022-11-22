@@ -25,10 +25,15 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta charset="ISO-8859-1">
 <title>E-Commerce</title>
+
+<style>
+.wrapper{
+    background-color: #202124;
+}
+</style>
 </head>
 
 <body>
-
 	<nav
 		class="navbar navbar-expand-lg navbar-dark bg-dark primary-background" aria-label="Top nav bar">
 		<div class="container-fluid">
@@ -53,7 +58,7 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 					%>
 					<li class="nav-item "><h6 class="nav-link">
 							Hello
-							<%=userDto.getEmail()%></h6></li>
+							<%=userDto.getName()%></h6></li>
 					<li class="nav-item"><a class="nav-link active " href="logout"><span
 							class="fa fa-sing-out"></span> Logout</a></li>
 					<%
@@ -155,6 +160,9 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 				<div class="modal-body" id="modalbody"></div>
 			</div>
 		</div>
+	</div>
+	
+	</div>
 	</div>
 	
 	

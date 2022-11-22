@@ -10,6 +10,7 @@ public class Login {
 
 	@Id
 	private String email;
+	private String mobileNo;
 	private String password;
 	private String role;
 
@@ -18,12 +19,17 @@ public class Login {
 
 	}
 
-	public Login(String email, String password, String role) {
+	
+
+	public Login(String email, String mobileNo, String password, String role) {
 		super();
 		this.email = email;
+		this.mobileNo = mobileNo;
 		this.password = password;
 		this.role = role;
 	}
+
+
 
 	public String getEmail() {
 		return email;
@@ -48,10 +54,23 @@ public class Login {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+
 
 	@Override
 	public String toString() {
-		return "Login [email=" + email + ", password=" + password + ", role=" + role + "]";
+		return "Login [email=" + email + ", mobileNo=" + mobileNo + ", password=" + password + ", role=" + role + "]";
 	}
+
+	
 
 }

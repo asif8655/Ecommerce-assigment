@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -20,6 +21,7 @@ import com.application.datamap.DataMap;
 import com.application.dto.CustomerDto;
 import com.application.dto.LoginDto;
 import com.application.dto.ResponseStatus;
+import com.application.entity.Customer;
 import com.application.entity.Product;
 import com.application.service.CustomerService;
 import com.application.service.LoginService;
@@ -61,21 +63,47 @@ public class HomeController {
 
 	// after login go to HomePage
 	@PostMapping("/login")
-	public String validateCustomer(LoginDto loginDto, HttpSession session) {
+	public String validateCustomer(HttpServletRequest request, HttpSession session) {
+		
+		String userName=request.getParameter("email");
+		String password=request.getParameter("password");
+		
+		
 
-		if (this.loginService.validateCustomer(loginDto)) {
-			String role = this.loginService.setRole(loginDto);
-			if (role.contentEquals("Admin")) {
-				session.setAttribute("adminuser", loginDto);
-				return "redirect:adminpage";
-			} else {
+		if(userName.contains("@")) {
+			if(this.loginService.loginCustomerByEmail(userName, password)) {
+			CustomerDto customerDto = DataMap
+					.convertCustomerToCustomerDto(this.customerService.getCustomerById(userName));
+			session.setAttribute("user", customerDto);
+			return "redirect:index";	
+			}
+		}
+		else if(!userName.contains("@")) {
+			System.out.println("Inside username method");
+			
+			if(this.loginService.loginCustomerByMobileNo(userName, password)) {
+				System.out.println("inside if"+userName+":"+password);
+				
 				CustomerDto customerDto = DataMap
-						.convertCustomerToCustomerDto(this.customerService.getCustomerById(loginDto.getEmail()));
+						.convertCustomerToCustomerDto(this.customerService.getCustomerByMobileNo(userName));
 				session.setAttribute("user", customerDto);
 				return "redirect:index";
 			}
 		}
 		return "redirect:" + LOGIN + "?msg=Invalid Credential";
+//		if (this.loginService.validateCustomer(username,password)) {
+//			String role = this.loginService.setRole(loginDto);
+//			if (role.contentEquals("Admin")) {
+//				session.setAttribute("adminuser", loginDto);
+//				return "redirect:adminpage";
+//			} else {
+//				CustomerDto customerDto = DataMap
+//						.convertCustomerToCustomerDto(this.customerService.getCustomerById(loginDto.getEmail()));
+//				session.setAttribute("user", customerDto);
+//				return "redirect:index";
+//			}
+//		}
+//		return "redirect:" + LOGIN + "?msg=Invalid Credential";
 	}
 
 	// Take cart product and hold in session

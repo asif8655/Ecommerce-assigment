@@ -144,10 +144,10 @@ body {
 
 <div class="wrapper">
 <div class="header">
-<h1>Login</h1>
+<h1>Admin Login</h1>
 </div>
 
-<form class="form" action="login" method="post">
+<form class="form" action="adminlogin" method="post">
 <div class="form-control">
 Email:<span style="color:red;padding-left:5px">*</span>
 <input name="email" type="text"  placeholder="Email" required/><br>
@@ -167,9 +167,6 @@ if((String)request.getParameter("msg")!=null){
 
 
 </form>
-<div class="container text-center">
-<button class="signup"><a href="register" style="color:black;text-decoration:none">SingUp</a></button>
-</div>
 </div>
 
 </body>

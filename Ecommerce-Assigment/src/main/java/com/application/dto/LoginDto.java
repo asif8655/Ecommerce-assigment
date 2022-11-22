@@ -10,6 +10,7 @@ public class LoginDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1329761868022817486L;
 	private String email;
+	private String mobileNo;
 	private String password;
 	private String role;
 	
@@ -17,12 +18,15 @@ public class LoginDto implements Serializable {
 		super();
 		
 	}
-	public LoginDto(String email, String password, String role) {
+	
+	public LoginDto(String email, String mobileNo, String password, String role) {
 		super();
 		this.email = email;
+		this.mobileNo = mobileNo;
 		this.password = password;
 		this.role = role;
 	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -41,9 +45,21 @@ public class LoginDto implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	@Override
-	public String toString() {
-		return "Login [email=" + email + ", password=" + password + ", role=" + role + "]";
+	
+	
+
+	public String getMobileNo() {
+		return mobileNo;
 	}
 
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
+	@Override
+	public String toString() {
+		return "LoginDto [email=" + email + ", mobileNo=" + mobileNo + ", password=" + password + ", role=" + role
+				+ "]";
+	}
+	
 }

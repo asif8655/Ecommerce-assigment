@@ -1,5 +1,6 @@
 package com.application.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,13 @@ public class LoginDao {
 	private LoginRepo loginRepo;
 
 	// To validate Login id and password
-	public boolean validateCustomer(LoginDto loginDto) {
-		if (this.loginRepo.existsById(loginDto.getEmail())) {
-			Optional<Login> optLogin = this.loginRepo.findById(loginDto.getEmail());
+	public boolean loginCustomerByEmail(String username,String password) {
+		if (this.loginRepo.existsById(username)) {
+			Optional<Login> optLogin = this.loginRepo.findById(username);
 			if (optLogin.isPresent()) {
-				String password = optLogin.get().getPassword();
-				if (password.equals(loginDto.getPassword()))
+				String pass = optLogin.get().getPassword();
+				System.out.println(pass);
+				if (pass!=null&&pass.equals(password))
 					return true;
 			}
 
@@ -29,6 +31,23 @@ public class LoginDao {
 
 		return false;
 
+	}
+	
+	public boolean loginCustomerByMobileNo(String mobileNo,String password) {
+		System.out.println("UserName method call");
+		System.out.println(mobileNo+":"+password);
+		if(!this.loginRepo.findByMobileNo(mobileNo).isEmpty()) {
+			System.out.println("Username:"+mobileNo);
+			List<Login> customer = this.loginRepo.findByMobileNo(mobileNo);
+			System.out.println(customer);
+				String pass=customer.get(0).getPassword();
+				if(pass!=null&&pass.equals(password)) {
+					
+					return true;
+				}
+			
+		}
+		return false;
 	}
 
 	// get role to check admin or customer

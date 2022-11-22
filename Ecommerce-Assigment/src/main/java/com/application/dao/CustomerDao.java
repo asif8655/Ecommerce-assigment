@@ -1,5 +1,6 @@
 package com.application.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityExistsException;
@@ -7,6 +8,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import com.application.datamap.DataMap;
 import com.application.dto.CustomerDto;
 import com.application.entity.Customer;
@@ -26,8 +28,10 @@ public class CustomerDao {
 	// Insert Customer in Database
 	public boolean insertCustomer(CustomerDto customerDto) throws EntityNotFoundException {
 
+		
 		Customer cust = DataMap.customerDataMap(customerDto);
 		Login login = DataMap.loginDataMapFromCustomer(customerDto);
+		System.out.println(cust);
 		if (this.customerRepo.existsById(cust.getEmail())) {
 			throw new EntityExistsException("This email " + cust.getEmail() + " is already used");
 		}
@@ -47,6 +51,13 @@ public class CustomerDao {
 		}
 
 		return cust;
+	}
+	
+	public Customer getCustomerByMobileNo(String mobileNo) {
+		
+		
+		return this.customerRepo.findByMobileNo(mobileNo);
+		
 	}
 
 }

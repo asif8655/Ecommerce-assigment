@@ -43,6 +43,7 @@ public class DataMap {
 	public static Login loginDataMapFromCustomer(CustomerDto customerDto) {
 		Login login = new Login();
 		login.setEmail(customerDto.getEmail());
+		login.setMobileNo(customerDto.getMobileNo());
 		login.setPassword(customerDto.getPassword());
 		login.setRole("Customer");
 		return login;

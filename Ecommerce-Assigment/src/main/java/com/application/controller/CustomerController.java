@@ -11,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.application.datamap.DataMap;
 import com.application.dto.CustomerDto;
+import com.application.dto.ResponseStatus;
 import com.application.entity.Customer;
 import com.application.entity.Order;
 import com.application.entity.Product;
@@ -22,7 +24,9 @@ import com.application.service.OrderService;
 
 @Controller
 public class CustomerController {
-
+	
+	private static final String SUCCESS="SUCCESS";
+	
 	static final String LOGIN = "login";
 
 	@Autowired
@@ -40,15 +44,17 @@ public class CustomerController {
 
 	// Calling Insert Method
 	@PostMapping("/register")
-	public String insertCustomer(CustomerDto customerDto) {
+	public @ResponseBody ResponseStatus<String> insertCustomer(CustomerDto customerDto) {
+		
+		
 
 		try {
 		this.customerService.insertCustomer(customerDto); 
-			return LOGIN;
+			return new ResponseStatus<>(200,SUCCESS);
 		
 		}
 		catch(Exception e) {
-		return "redirect:register?error=email is already used";
+		return new ResponseStatus<>(401,"failed");
 		}
 	}
 

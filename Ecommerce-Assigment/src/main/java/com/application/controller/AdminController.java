@@ -3,6 +3,7 @@ package com.application.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -24,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.application.dto.ProductDto;
 import com.application.dto.ResponseStatus;
 import com.application.entity.Product;
+import com.application.service.LoginService;
 import com.application.service.ProductService;
 import com.application.util.ImageUploader;
 
@@ -37,15 +39,36 @@ public class AdminController {
 	ProductService productService;
 	
 	@Autowired
+	LoginService loginService;
+	
+	@Autowired
 	ImageUploader imageUploader;
 	
 	@Value("${upload.image}")
 	private String path;
 	
+	@RequestMapping("/adminlogin")
+	public String adminLogin() {
+		return "adminlogin";
+	}
+	
+	@PostMapping("/adminlogin")
+	public String adminLogin(HttpServletRequest request,HttpSession session) {
+		String userName = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		if(this.loginService.loginCustomerByEmail(userName, password)) {
+			session.setAttribute("adminuser", userName);
+			return "redirect:adminpage";
+		}
+		return "redirect:adminlogin?msg=Invalid Credential";
+		
+	}
+	
 	@RequestMapping("/adminpage")
 	public String adminLogin(Model m,HttpSession session) {
 		if(session.getAttribute("adminuser")==null) {
-			return "login";
+			return "adminlogin";
 		}
 		List<Product> products=this.productService.getAllProduct();
 		m.addAttribute("products",products);
@@ -121,6 +144,12 @@ public class AdminController {
 		dto.setImg(filename);
 		this.productService.updateProduct(dto);
 		return new ResponseStatus<>(200,SUCCESS);
+	}
+	
+	@RequestMapping("/adminlogout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:adminlogin";
 	}
 
 }

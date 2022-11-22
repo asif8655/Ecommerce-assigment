@@ -12,12 +12,16 @@ public class LoginService {
 	@Autowired
 	private LoginDao loginDao;
 
-	public boolean validateCustomer(LoginDto loginDto) {
-		return this.loginDao.validateCustomer(loginDto);
+	public boolean loginCustomerByEmail(String username,String password) {
+		return this.loginDao.loginCustomerByEmail( username, password);
 	}
 
 	public String setRole(LoginDto loginDto) {
 		return this.loginDao.setRole(loginDto);
+	}
+	
+	public boolean loginCustomerByMobileNo(String username,String password) {
+		return this.loginDao.loginCustomerByMobileNo(username, password);
 	}
 
 }
