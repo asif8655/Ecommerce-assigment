@@ -59,5 +59,26 @@ public class CustomerDao {
 		return this.customerRepo.findByMobileNo(mobileNo);
 		
 	}
+	
+	public boolean updateCustomer(Customer cust,CustomerDto customerDto) throws Exception {
+		Customer newData = DataMap.customerDataMap(customerDto);
+		Login login = DataMap.loginDataMapFromCustomer(customerDto);
+		
+		System.out.println("before"+newData);
+		if(this.customerRepo.existsById(cust.getEmail())) {
+			try {
+				System.out.println("after"+newData);
+				this.customerRepo.save(newData);
+				this.loginRepo.save(login);
+				return true;
+			}
+			catch(Exception e) {
+				throw new Exception("Customer Mobile number used by diffrent user");
+			}
+			
+		}
+		return false;
+		
+	}
 
 }

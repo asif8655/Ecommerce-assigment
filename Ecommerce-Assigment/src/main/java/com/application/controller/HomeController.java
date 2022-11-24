@@ -133,7 +133,7 @@ public class HomeController {
 
 
 	// Take product and add to cart
-	@PostMapping("/proudctId")
+	@PostMapping("/productId")
 	public @ResponseBody List<Product> getProductById(@RequestBody String pid, HttpSession session) {
 
 		if (session.getAttribute("user") == null) {
@@ -181,5 +181,13 @@ public class HomeController {
 		} else
 			return new ResponseStatus<>(401, "something went wrong");
 	}
+	
+//	@RequestMapping("/payment")
+//	public String paymentPage() {
+//		return "payment";
+//	}
+	
+	
+	
 
 }

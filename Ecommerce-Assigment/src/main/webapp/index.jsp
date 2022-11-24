@@ -94,7 +94,7 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 
 						<li class="active"><a href="index">Home</a></li>
 						<li class ="nav-item"  ><a href="order" >order</a></li>
-						<li><a href="#">Pages</a>
+						<li><a href="profile">Profile</a>
 						<li><a href="#">Portfolio</a></li>
 						<li><a href="#">Contact</a></li>
 					</ul>
@@ -130,7 +130,7 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 									<div class="store-item-icon">
 										<button class="btn btn-primary" id="addCart" onclick="addToCart(<%=p.getpId()%>)">Add to Cart</button>
 										<button class="btn btn-danger mx-2"
-										onclick="buyProduct(<%=p.getpId()%>)">Buy Now</button>
+										href="http://localhost:8080/payment?pid"+<%=p.getpId() %>>Buy Now</button>
 										<p id="outOfStock" style="color:red"></p>
 									</div>
 								</div>
@@ -204,7 +204,7 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 			                       '</div>'+
 			                      '<div class="card-footer" style="border: 0;">'+
 			                           '<div class="text-right">'+
-			                               '<a class="btn btn-danger mx-2" onclick="buyProduct('+item.pId+')">Buy Now</a>'+
+			                               '<a class="btn btn-danger mx-2" onclick="payment('+item.pId+')">Buy Now</a>'+
 			                               '<a class="btn btn-primary mx-2" onclick="removeProduct('+item.pId+')">Remove</a>'+
 			                           '</div>'+
 			                       '</div>'+
@@ -233,7 +233,7 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 					type:"POST",
 					contentType : 'application/json; charset=utf-8',
 					 dataType : 'json',
-					url:'proudctId',  
+					url:'productId',  
 					 data:JSON.stringify(prodId),
 
 					 success:function(result){
@@ -253,7 +253,7 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 			                       '</div>'+
 			                      '<div class="card-footer" style="border: 0;">'+
 			                           '<div class="text-right">'+
-			                               '<a class="btn btn-danger mx-2" onclick="buyProduct('+item.pId+')">Buy Now</a>'+
+			                               '<a class="btn btn-danger mx-2" onclick="payment('+item.pId+')">Buy Now</a>'+
 			                               '<p id="outOfStock" style="color:red"></p>'+
 			                               '<a class="btn btn-primary mx-2" onclick="removeProduct('+item.pId+')">Remove</a>'+
 			                           '</div>'+
@@ -271,6 +271,8 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 					   },			
 				});
 			}
+			
+			
 			
 			
 			
@@ -332,7 +334,7 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 						console.log(error)
 						
 					   },	
-				})
+				});
 				
 			}		
 			
@@ -363,7 +365,7 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 		    				 window.location.replace("http://localhost:8080/login")
 		    				
 		    			   },	
-		    		})
+		    		});
 		    	   
 		    	   
 		    	   

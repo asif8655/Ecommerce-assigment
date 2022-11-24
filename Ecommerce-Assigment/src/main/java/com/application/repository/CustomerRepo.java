@@ -10,5 +10,7 @@ public interface CustomerRepo extends CrudRepository<Customer, String>{
 	
 	
 	public Customer findByMobileNo(String mobileNo);
+	
+	
 
 }

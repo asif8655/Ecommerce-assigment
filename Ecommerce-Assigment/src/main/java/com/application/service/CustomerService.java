@@ -26,5 +26,9 @@ public class CustomerService {
 	public Customer getCustomerByMobileNo(String mobileNo) {
 		return this.customerDao.getCustomerByMobileNo(mobileNo);
 	}
+	
+	public boolean updateCustomer(Customer cust,CustomerDto customerDto) throws Exception {
+		return this.customerDao.updateCustomer(cust, customerDto);
+	}
 
 }

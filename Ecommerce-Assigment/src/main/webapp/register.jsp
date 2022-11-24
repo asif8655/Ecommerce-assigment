@@ -27,7 +27,7 @@ body {
 .wrapper{
     background-color: #202124;
     position: relative;
-    width:30%;
+    width:70%;
     margin: 50px auto;
     padding: 20px;
     border-radius: 10px;
@@ -45,7 +45,7 @@ body {
 
 .form {
     margin: 0 auto;
-    max-width: 16rem;
+    max-width: 40rem;
     overflow: auto;
 }
 
@@ -198,7 +198,7 @@ body {
 			<small style="color:red">Error message</small>
 			</div>
 			
-		<button>Submit</button>
+		<button>Create Account</button>
 
 	</form>
 	</div>
@@ -240,6 +240,7 @@ body {
 					if(data.statusCode==401){
 						alert("Email is Alrady exist");
 					}
+					else
 					 swal("Added Succesfully")
 					  .then((value)=>{
 						 window.location="http://localhost:8080/login";

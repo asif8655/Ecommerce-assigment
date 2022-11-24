@@ -79,12 +79,7 @@
 								data-bs-toggle="modal" data-bs-target="#add-post-modal" style="color:white"><span
 									class="fa fa-cart-plus"></span> Cart </a> </em>
 				</div>
-				<form class="d-flex" role="search" id="search-form" action="SearchProduct" method="POST">
-					<input autocomplete="off" class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search" id="input-search">
-					<button class="btn btn-outline-light" type="submit" id="search-product" onclick="searchProduct()">
-					Search</button>
-				</form>
+				
 			</div>
 		</div>
 	</nav>
@@ -162,6 +157,7 @@ if(orders.isEmpty())
 }
 	
 %>
+
 
 <div class="modal fade " id="add-post-modal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
