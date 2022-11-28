@@ -178,10 +178,11 @@ body {
 			
 			<div class="form-control">
 			Email:<span	style="color: red; padding-left: 5px">*</span>
-			<input name="email" id="email" type="email" placeholder="E-mail"  /><br>
+			<input name="email" id="email" type="text" placeholder="E-mail"  /><br>
 			<i class="fas fa-check-circle"></i>
 			<i class="fas fa-times-circle"></i>
 			<small style="color:red">Error message</small>
+			<p id="emailerror" style="display: none; color: red"></p>
 			</div>
 			<div class="form-control">
 			MobileNo:<span	style="color: red; padding-left: 5px">*</span>
@@ -189,6 +190,7 @@ body {
 			<i class="fas fa-check-circle"></i>
 			<i class="fas fa-times-circle"></i>
 			<small style="color:red">Error message</small>
+			<p id="mobileerror" style="display: none; color: red"></p>
 			</div>
 			<div class="form-control">
 			Address:<span	style="color: red; padding-left: 5px">*</span>
@@ -226,7 +228,8 @@ body {
 	  
 	   $('#form').on('submit',function(event){
 		  event.preventDefault();
-	      checkInputs();
+	      if(checkInputs()){
+	    	  
 	      console.log("name="+name.value);
 	      
 	      let form=new FormData(this);   
@@ -238,23 +241,31 @@ body {
 				success : function(data, textStatus, jqXHR) {
 					console.log(data)
 					if(data.statusCode==401){
-						alert("Email is Alrady exist");
+						let errormsg = data.t;
+						console.log(errormsg);
+						$("#mobileerror").html(errormsg);
+						$("#mobileerror").show();
+						  
 					}
+					
+					
 					else
-					 swal("Added Succesfully")
+						swal("Added Succesfully")
 					  .then((value)=>{
-						 window.location="http://localhost:8080/login";
-					 })  
-				},
+							 window.location="http://localhost:8080/login";
+					  
+				});
+		 	},
+		 	
 				error : function(jqXHR, textStatus, errorThrown) {
 					console.log(errorThrown)
 				},
 				processData : false,
 				contentType : false
 			})
-		  
-		  
-	  } )
+	      }
+	   })
+	  
 	   /* form.addEventListener('submit', e => {
 	      e.preventDefault();
 	      checkInputs();
@@ -263,6 +274,8 @@ body {
 	  
 	  function checkInputs(){
 		  
+		  
+		  
 		  const nameValue = name.value.trim();
 	      const emailValue = email.value.trim();
 	      const passwordValue = password.value.trim();
@@ -270,49 +283,79 @@ body {
 	      const mobileValue = mobile.value.trim();
 	      const addressValue = address.value.trim();
 	      
+	      let hasError=true
+	      if(hasError){	
+	    	  
+	    	   if(userNameValue === ''){
+	 	    	  setErrorFor(userName,'Please Enter your userName')
+	 	    	  hasError=false
+	 	      }else {
+	 	    	  setSuccessFor(userName);
+	 	    	  
+	 	      }
+	    	  
+	    	    if (passwordValue === '') {
+	  	          setErrorFor(password, 'Please enter password');
+	  	        hasError=false
+	  	      } else if (!isPassword(passwordValue)) {
+	  	          setErrorFor(password, 'atleast one number, one uppercase, lowercase letter, and atleast 8 character');
+	  	        hasError=false
+	  	      }else {
+	  	          setSuccessFor(password);
+	  	          
+	  	      }
+	    	  
+	    	  
 	      if (nameValue === '') {
 	          setErrorFor(name, 'Please enter your 	name');
-	      } else {
+	          hasError=false
+	      }
+	      else if(!isName(nameValue)){
+	    	  setErrorFor(name,'Name is not vaild');
+	    	  hasError=false
+	      }else {
 	          setSuccessFor(name);
+	          
 	      }
 
 	      if (emailValue === '') {
 	          setErrorFor(email, 'Please enter your email');
+	          hasError=false
 	      } else if (!isEmail(emailValue)) {
 	          setErrorFor(email, 'Email not valid');
+	          hasError=false
 	      } else {
 	          setSuccessFor(email);
+	          
 	      }
 
-	      if (passwordValue === '') {
-	          setErrorFor(password, 'Please enter password');
-	      } else if (!isPassword(passwordValue)) {
-	          setErrorFor(password, 'atleast one number, one uppercase, lowercase letter, and atleast 8 character');
-	      }else {
-	          setSuccessFor(password);
-	      }
+	  
 	      
-	      if(userNameValue === ''){
-	    	  setErrorFor(userName,'Please Enter your userName')
-	      }else {
-	    	  setSuccessFor(userName);
-	      }
+	   
 	      
 	      if (mobileValue === '') {
 	          setErrorFor(mobile, 'Please enter your Mobile Number');
+	          hasError=false
 	      }else if(!isMobile(mobileValue)){
 	    	  setErrorFor(mobile,'Mobile Number not valid');
+	    	  hasError=false
 	      }
 	      
 	      else {
 	          setSuccessFor(mobile);
+	          
 	      }
 	      
 	      if (addressValue === '') {
 	          setErrorFor(address, 'Please enter your 	address');
+	          hasError=false
 	      } else {
 	          setSuccessFor(address);
+	          
 	      }
+	      }
+	      
+	      return hasError;
 	  }
 	  
 
@@ -326,6 +369,10 @@ body {
 	  function setSuccessFor(input) {
 	      const formControl = input.parentElement;
 	      formControl.className = 'form-control success';
+	  }
+	  
+	  function isName(name){
+		  return /^[a-zA-Z]+$/.test(name);
 	  }
 
 	  function isEmail(email) {

@@ -24,5 +24,9 @@ public class OrderService {
 		return this.orderDao.getAllOrderByEmail(customer);
 
 	}
+	
+	public boolean outOfStock(int pid) {
+		return this.orderDao.checkOutOfStocks(pid);
+	}
 
 }

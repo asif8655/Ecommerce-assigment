@@ -13,7 +13,7 @@ public class CustomerService {
 	@Autowired
 	private CustomerDao customerDao;
 
-	public boolean insertCustomer(CustomerDto customerDto) {
+	public boolean insertCustomer(CustomerDto customerDto) throws Exception {
 
 		return this.customerDao.insertCustomer(customerDto);
 	}

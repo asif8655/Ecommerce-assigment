@@ -129,8 +129,7 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 								<div class="text-right ">
 									<div class="store-item-icon">
 										<button class="btn btn-primary" id="addCart" onclick="addToCart(<%=p.getpId()%>)">Add to Cart</button>
-										<button class="btn btn-danger mx-2"
-										href="http://localhost:8080/payment?pid"+<%=p.getpId() %>>Buy Now</button>
+										<button class="btn btn-danger mx-2" onclick="buyProduct(+<%=p.getpId() %>)">Buy Now</button>
 										<p id="outOfStock" style="color:red"></p>
 									</div>
 								</div>
@@ -347,22 +346,21 @@ List<Product> productService = (List<Product>) request.getAttribute("product");
 		    			type:"POST",
 		    			contentType : 'application/json; charset=utf-8',
 		    			 dataType : 'json',
-		    			url:'buyproduct',  
+		    			url:'outofstock',  
 		    			 data:JSON.stringify(prodid),
 		    			 success:function(result){
 		    				 if(result.statusCode==200){
-		    					 swal("Order Placed Succesfully click OK to Track your order")
-		    					 .then((value)=>{
-		    						 window.location="http://localhost:8080/order";
-		    					 })
-		    				 }
-		    				 else{
-		    					 $('#outOfStock').html("This Item is currently out of stock")
-		    				 }
+		    					 window.location="http://localhost:8081/payment?product_id="+pid;
+		    					 }else if(result.statusCode==405){
+		    						 swal("Login First").then((value)=>{
+		    							 window.location="http://localhost:8081/login";
+		    						 })
+		    					 }else{
+		    	 					 $('#outOfStock').html("This Item is currently out of stock")
+		    	 				 }
 		    			 
 		    			 },
 		    			 error: function(xhr, status, error) {
-		    				 window.location.replace("http://localhost:8080/login")
 		    				
 		    			   },	
 		    		});

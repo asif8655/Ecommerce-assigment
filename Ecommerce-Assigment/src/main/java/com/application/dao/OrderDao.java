@@ -48,5 +48,13 @@ public class OrderDao {
 	public List<Order> getAllOrderByEmail(Customer customer) {
 		return this.orderRepo.findAllByCustomer(customer);
 	}
+	
+	public boolean checkOutOfStocks(int pid) {
+		int productQuantity = this.productService.getQuantity(pid);
+		if(productQuantity>0)
+			return true;
+		
+			return false;
+	}
 
 }

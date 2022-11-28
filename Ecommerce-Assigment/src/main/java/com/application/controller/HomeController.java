@@ -182,10 +182,18 @@ public class HomeController {
 			return new ResponseStatus<>(401, "something went wrong");
 	}
 	
-//	@RequestMapping("/payment")
-//	public String paymentPage() {
-//		return "payment";
-//	}
+	@PostMapping("/outofstock")
+	public @ResponseBody ResponseStatus<String> outOfStock(@RequestBody String pid,HttpSession session){
+		if(session.getAttribute("user")==null) {
+			return new ResponseStatus<>(405,"Forbidden Request");
+		}
+		JSONObject jOrder = new JSONObject(pid);
+		int prodId = jOrder.getInt("prodId");
+		if(this.orderService.outOfStock(prodId)) 
+				return new ResponseStatus<>(200,"Product in Stock");
+			return new ResponseStatus<>(401,"Out of Stock");
+		
+	}
 	
 	
 	

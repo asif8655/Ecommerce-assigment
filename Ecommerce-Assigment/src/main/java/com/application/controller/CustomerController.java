@@ -3,6 +3,7 @@ package com.application.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityExistsException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -55,7 +56,7 @@ public class CustomerController {
 	@PostMapping("/register")
 	public @ResponseBody ResponseStatus<String> insertCustomer(CustomerDto customerDto) {
 		
-		
+		System.out.println("Js not working");
 
 		try {
 		this.customerService.insertCustomer(customerDto); 
@@ -63,8 +64,10 @@ public class CustomerController {
 		
 		}
 		catch(Exception e) {
-		return new ResponseStatus<>(401,"failed");
+			System.out.println(e.getMessage());
+		return new ResponseStatus<>(401,e.getMessage());
 		}
+		 
 	}
 
 	@RequestMapping("/logout")
@@ -101,7 +104,9 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/profile")
-	public String userProfile() {
+	public String userProfile(HttpSession session) {
+		if (session.getAttribute("user") == null)
+			return "redirect:login";
 		return "/profile";
 	}
 	
@@ -112,6 +117,7 @@ public class CustomerController {
 		
 		CustomerDto customerSession =(CustomerDto) session.getAttribute("user");
 		Customer cust = this.customerService.getCustomerById(customerSession.getEmail());
+		
 		try {
 			if(this.customerService.updateCustomer(cust, customerDto)) {
 				session.setAttribute("user", customerDto);

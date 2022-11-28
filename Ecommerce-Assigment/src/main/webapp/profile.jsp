@@ -3,13 +3,15 @@
 <%@page import="java.util.List"%>
 <%@page import="com.application.dto.CustomerDto"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%CustomerDto userDto = (CustomerDto) session.getAttribute("user"); %>
+	pageEncoding="ISO-8859-1"%>
+<%
+CustomerDto userDto = (CustomerDto) session.getAttribute("user");
+%>
 <!DOCTYPE html>
-<html lang = en>
+<html lang=en>
 <head>
 <meta charset="ISO-8859-1">
-<title>Order Page</title>
+<title>Profile Page</title>
 <!-- Bootstrap CSS CDN -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -43,9 +45,11 @@
 
 <body>
 
-<nav
-		class="navbar navbar-expand-lg navbar-dark bg-dark primary-background" aria-label="top nav bar">
-		<div class="container-fluid"> <!-- Top nav bar -->
+	<nav
+		class="navbar navbar-expand-lg navbar-dark bg-dark primary-background"
+		aria-label="top nav bar">
+		<div class="container-fluid">
+			<!-- Top nav bar -->
 
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -75,124 +79,136 @@
 					%>
 				</ul>
 				<div class="col-md-1">
-					<em class="nav-item" ><a class="nav-link" href="#"
-								data-bs-toggle="modal" data-bs-target="#add-post-modal" style="color:white"><span
-									class="fa fa-cart-plus"></span> Cart </a> </em>
+					<em class="nav-item"><a class="nav-link" href="#"
+						data-bs-toggle="modal" data-bs-target="#add-post-modal"
+						style="color: white"><span class="fa fa-cart-plus"></span>
+							Cart </a> </em>
 				</div>
-				
+
 			</div>
 		</div>
 	</nav>
-	
-<div class="container-fluid">
+
+	<div class="container-fluid">
 		<div class="row">
 
 			<div class="col-3">
-	
-	<nav id="sidebar" aria-label="Sidebar" >
-			<div class="sidebar-header">
-				<h3>Ecommerce Application</h3>
+
+				<nav id="sidebar" aria-label="Sidebar">
+					<div class="sidebar-header">
+						<h3>Ecommerce Application</h3>
+					</div>
+
+					<ul class="list-unstyled components">
+						<p class="font-weight-normal">Main Menu</p>
+						<li><a href="http://localhost:8080/">Home</a></li>
+						<li><a href="#">Order</a></li>
+						<li><a href="#">Portfolio</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+				</nav>
 			</div>
 
-			<ul class="list-unstyled components">
-				<p class="font-weight-normal">Main Menu</p>
-				<li><a href="http://localhost:8080/">Home</a></li>
-				<li><a href="#">Order</a></li>
-				<li><a href="#">Portfolio</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-		</nav>
-		</div>
-		
-		
-		<div class="col-lg-8">
-		<h1 class="container">Customer Profile</h1>
-					<div class="card">
-						<div class="card-body">
-						<form class="form" id ="updateform" action="update" method="post">
-						<div class="row mb-3">
-							
+
+			<div class="col-lg-8">
+				<h1 class="container">Customer Profile</h1>
+				<div class="card">
+					<div class="card-body">
+						<form class="form" id="updateform" action="update" method="post">
+							<div class="row mb-3">
+
 								<div class="col-sm-3">
 									<h6 class="mb-0">User Name</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input name="userName" id="userName" type="text" class="form-control" readonly="readonly" value=<%=userDto.getUserName() %>>
+									<input name="userName" id="userName" type="text"
+										class="form-control" readonly="readonly"
+										value=<%=userDto.getUserName()%>>
 								</div>
 							</div>
-							
+
 							<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Email</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input name="email" id="email" type="text" class="form-control" readonly="readonly" value=<%=userDto.getEmail() %>>
+									<input name="email" id="email" type="text" class="form-control"
+										readonly="readonly" value=<%=userDto.getEmail()%>>
 								</div>
 							</div>
-							
+
 							<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Change Password</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input name="password" id="password" type="password" class="form-control" readonly="readonly" value=<%=userDto.getPassword() %>>
+									<input name="password" id="password" type="password"
+										class="form-control" readonly="readonly"
+										value=<%=userDto.getPassword()%>>
 								</div>
-								</div>
-								
-								<div class="row mb-3">
+							</div>
+
+							<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Name</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input id="name" name="name" type="text" class="form-control" readonly="readonly" value=<%=userDto.getName() %>>
+									<input id="name" name="name" type="text" class="form-control"
+										readonly="readonly" value=<%=userDto.getName()%>>
 								</div>
 							</div>
-							
+
 							<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Mobile</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input name="mobileNo" id="mobile" type="text" class="form-control" readonly="readonly" value=<%=userDto.getMobileNo() %>>
-									<p id="mobileerror"style="display:none;color:red"></p>
+									<input name="mobileNo" id="mobile" type="text"
+										class="form-control" readonly="readonly"
+										value=<%=userDto.getMobileNo()%>>
+									<p id="mobileerror" style="display: none; color: red"></p>
 								</div>
 							</div>
-							
+
 							<div class="row mb-3">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Address</h6>
 								</div>
 								<div class="col-sm-9 text-secondary">
-									<input name="address" id="address" type="text" class="form-control" readonly="readonly" value=<%=userDto.getAddress() %>>
+									<input name="address" id="address" type="text"
+										class="form-control" readonly="readonly"
+										value=<%=userDto.getAddress()%>>
 								</div>
 							</div>
-							
+
 							<div class="row">
 								<div class="col-sm-3"></div>
 								<div class="col-sm-9 text-secondary">
-									<button id="update" type="submit" style="display: none;" class="btn btn-primary px-4" >Update</button>
+									<button id="update" type="submit" style="display: none;"
+										class="btn btn-primary px-4">Update</button>
 								</div>
 							</div>
 						</form>
 						<div class="container col-md-4">
-							<button id="edit"  onclick="edit()" class="btn btn-primary px-4" >Edit</button>
-									
-							</div>
-							
-								
-								
-							
-							
-							
-							
+							<button id="edit" onclick="edit()" class="btn btn-primary px-4">Edit</button>
+
 						</div>
+
+
+
+
+
+
+
 					</div>
-		
+				</div>
+
+			</div>
 		</div>
-		</div>
-		</div>
-		
-		
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 		crossorigin="anonymous"></script>
 	<script
@@ -200,150 +216,134 @@
 		integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
 		crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-		<script>
-		
-		
- 		function edit()
-			{
- 				$(".form-control").attr('readonly',false);
-				$("#email").attr('readonly',true);
-				$("#edit").hide();
-				$("#update").show();
-			}
-		
-		  
-		  const name = document.getElementById('name');
-		  const email = document.getElementById('email');
-		  const password = document.getElementById('password');
-		  const userName = document.getElementById('userName');
-		  const mobile = document.getElementById('mobile');
-		  const address = document.getElementById('address');
-		
-  		$('#updateform').on('submit',function(event){
-  			event.preventDefault();
-  			checkInputs();
+	<script>
+		function edit() {
+			$(".form-control").attr('readonly', false);
+			$("#email").attr('readonly', true);
+			$("#edit").hide();
+			$("#update").show();
+		}
+
+		const name = document.getElementById('name');
+		const email = document.getElementById('email');
+		const password = document.getElementById('password');
+		const userName = document.getElementById('userName');
+		const mobile = document.getElementById('mobile');
+		const address = document.getElementById('address');
+
+		$('#updateform').on('submit', function(event) {
+			event.preventDefault();
+			checkInputs();
 			console.log(name.value);
-			
-			let form=new FormData(this);   
-	          console.log(form)
-			 	$.ajax({
-					url : "update",
-					type : "POST",
-					data : form,
-					success : function(data, textStatus, jqXHR) {
-						console.log(data)
-						if(data.statusCode==200){
-							window.location="http://localhost:8080/profile";
-							$("#update").hide();
-							$("#edit").show();
-						}
-						else{
-							let errormsg=data.t;
-							console.log(errormsg);
-							$("#mobileerror").html(errormsg);
-							$("#mobileerror").show();
-						}
-							
-						 swal("SomeThing went Wrong")
-						 
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(errorThrown)
-					},
-					processData : false,
-					contentType : false
-			 	});
-  		})
-  		
-				
-						
 
-			 
-		 
-		
-		function checkInputs(){
-		  
-		  const nameValue = name.value.trim();
-	      const emailValue = email.value.trim();
-	      const passwordValue = password.value.trim();
-	      const userNameValue = userName.value.trim();
-	      const mobileValue = mobile.value.trim();
-	      const addressValue = address.value.trim();
-	      
-	      if (nameValue === '') {
-	          setErrorFor(name, 'Please enter your 	name');
-	      } else {
-	          setSuccessFor(name);
-	      }
+			let form = new FormData(this);
+			console.log(form)
+			$.ajax({
+				url : "update",
+				type : "POST",
+				data : form,
+				success : function(data, textStatus, jqXHR) {
+					console.log(data)
+					if (data.statusCode == 200) {
+						window.location = "http://localhost:8080/profile";
+						$("#update").hide();
+						$("#edit").show();
+					} else {
+						let errormsg = data.t;
+						console.log(errormsg);
+						$("#mobileerror").html(errormsg);
+						$("#mobileerror").show();
+					}
 
-	      if (emailValue === '') {
-	          setErrorFor(email, 'Please enter your email');
-	      } else if (!isEmail(emailValue)) {
-	          setErrorFor(email, 'Email not valid');
-	      } else {
-	          setSuccessFor(email);
-	      }
+					swal("SomeThing went Wrong")
 
-	      
-	      if(userNameValue === ''){
-	    	  setErrorFor(userName,'Please Enter your userName')
-	      }else {
-	    	  setSuccessFor(userName);
-	      }
-	      
-	      if (mobileValue === '') {
-	          setErrorFor(mobile, 'Please enter your Mobile Number');
-	      }else if(!isMobile(mobileValue)){
-	    	  setErrorFor(mobile,'Mobile Number not valid');
-	      }
-	      else {
-	          setSuccessFor(mobile);
-	      }
-	      
-	      if (passwordValue === '') {
-	          setErrorFor(password, 'Please enter password');
-	      } else if (!isPassword(passwordValue)) {
-	          setErrorFor(password, 'atleast one number, one uppercase, lowercase letter, and atleast 8 character');
-	      }else {
-	          setSuccessFor(password);
-	      }
-	      
-	      if (addressValue === '') {
-	          setErrorFor(address, 'Please enter your 	address');
-	      } else {
-	          setSuccessFor(address);
-	      }
-	  }
-	  
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log(errorThrown)
+				},
+				processData : false,
+				contentType : false
+			});
+		})
 
-	  function setErrorFor(input, message) {
-	      const formControl = input.parentElement;
-	      const small = formControl.querySelector('small');
-	      formControl.className = 'form-control error';
-	      small.innerText = message;
-	  }
+		function checkInputs() {
 
-	  function setSuccessFor(input) {
-	      const formControl = input.parentElement;
-	      formControl.className = 'form-control success';
-	  }
+			const nameValue = name.value.trim();
+			const emailValue = email.value.trim();
+			const passwordValue = password.value.trim();
+			const userNameValue = userName.value.trim();
+			const mobileValue = mobile.value.trim();
+			const addressValue = address.value.trim();
 
-	  function isEmail(email) {
-	      return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-	  }
+			if (nameValue === '') {
+				setErrorFor(name, 'Please enter your 	name');
+			} else {
+				setSuccessFor(name);
+			}
 
-	  function isPassword(password){  
-	      return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password);
-	  }
+			if (emailValue === '') {
+				setErrorFor(email, 'Please enter your email');
+			} else if (!isEmail(emailValue)) {
+				setErrorFor(email, 'Email not valid');
+			} else {
+				setSuccessFor(email);
+			}
 
-	  function isMobile(mobile){
-		  return /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(mobile);
-	  }
+			if (userNameValue === '') {
+				setErrorFor(userName, 'Please Enter your userName')
+			} else {
+				setSuccessFor(userName);
+			}
 
-		 
-			
-		
-		</script>
-		
-		</body>
-		</html>
+			if (mobileValue === '') {
+				setErrorFor(mobile, 'Please enter your Mobile Number');
+			} else if (!isMobile(mobileValue)) {
+				setErrorFor(mobile, 'Mobile Number not valid');
+			} else {
+				setSuccessFor(mobile);
+			}
+
+			if (passwordValue === '') {
+				setErrorFor(password, 'Please enter password');
+			} else if (!isPassword(passwordValue)) {
+				setErrorFor(password,
+						'atleast one number, one uppercase, lowercase letter, and atleast 8 character');
+			} else {
+				setSuccessFor(password);
+			}
+
+			if (addressValue === '') {
+				setErrorFor(address, 'Please enter your 	address');
+			} else {
+				setSuccessFor(address);
+			}
+		}
+
+		function setErrorFor(input, message) {
+			const formControl = input.parentElement;
+			const small = formControl.querySelector('small');
+			formControl.className = 'form-control error';
+			small.innerText = message;
+		}
+
+		function setSuccessFor(input) {
+			const formControl = input.parentElement;
+			formControl.className = 'form-control success';
+		}
+
+		function isEmail(email) {
+			return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+					.test(email);
+		}
+
+		function isPassword(password) {
+			return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(password);
+		}
+
+		function isMobile(mobile) {
+			return /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/.test(mobile);
+		}
+	</script>
+
+</body>
+</html>

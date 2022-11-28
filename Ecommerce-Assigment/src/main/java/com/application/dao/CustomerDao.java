@@ -26,18 +26,20 @@ public class CustomerDao {
 	private LoginRepo loginRepo;
 
 	// Insert Customer in Database
-	public boolean insertCustomer(CustomerDto customerDto) throws EntityNotFoundException {
+	public boolean insertCustomer(CustomerDto customerDto) throws EntityExistsException{
 
 		
 		Customer cust = DataMap.customerDataMap(customerDto);
 		Login login = DataMap.loginDataMapFromCustomer(customerDto);
 		System.out.println(cust);
-		if (this.customerRepo.existsById(cust.getEmail())) {
-			throw new EntityExistsException("This email " + cust.getEmail() + " is already used");
+		if (!this.customerRepo.existsById(cust.getEmail())) {
+			this.customerRepo.save(cust);
+			this.loginRepo.save(login);
+			System.out.println(login);
+			return true;
 		}
-		this.customerRepo.save(cust);
-		this.loginRepo.save(login);
-		return true;
+		System.out.println(login);
+		throw new EntityExistsException("This email " + cust.getEmail() + " is already used");
 	}
 
 	// Fetch Customer from database
