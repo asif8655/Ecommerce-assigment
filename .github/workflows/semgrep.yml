@@ -16,7 +16,7 @@ jobs:
     name: semgrep/ci
     runs-on: self-hosted
     env:
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      SEMGREP_APP_TOKEN: ${{ 9af663b7776a67e5d5680a0bc4fdc2fd05dc61d8981c88f00568af56aa10cf5c }}
     container:
       image: returntocorp/semgrep
     steps:
